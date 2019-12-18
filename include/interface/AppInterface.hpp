@@ -1,6 +1,8 @@
 #pragma once
 #include <gtkmm/window.h>
 #include <gtkmm/button.h>
+#include <gtkmm/drawingarea.h>
+#include <gtkmm/textview.h>
 
 class AppInterface : public Gtk::Window
 {

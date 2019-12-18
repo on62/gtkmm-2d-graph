@@ -1,4 +1,4 @@
-#include <interface/AppInterface.h>
+#include <interface/AppInterface.hpp>
 #include <gtkmm/application.h>
 
 int main (int ArgC, char **ArgV)

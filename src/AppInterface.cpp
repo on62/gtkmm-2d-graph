@@ -1,4 +1,4 @@
-#include <interface/AppInterface.h>
+#include <interface/AppInterface.hpp>
 
 AppInterface::AppInterface () : plot_button ("Plot")
 {
