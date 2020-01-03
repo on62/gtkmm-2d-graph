@@ -4,7 +4,7 @@ BUILD_FLAGS = -no-pie
 
 .PHONY: clean directories
 
-build: main interface
+build: main interface graph_area
 	g++ $(BUILD_FLAGS) $(LIBS) obj/* -o bin/gtkmm-2d-graph
 
 main: directories
@@ -12,6 +12,9 @@ main: directories
 
 interface: directories
 	g++ -c $(COMPILE_FLAGS) src/AppInterface.cpp -o obj/AppInterface.o
+
+graph_area: directories
+	g++ -c $(COMPILE_FLAGS) src/GraphArea.cpp -o obj/GraphArea.o
 
 clean:
 	rm -rf bin

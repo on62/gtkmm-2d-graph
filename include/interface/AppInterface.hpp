@@ -1,7 +1,8 @@
 #pragma once
+#include <interface/GraphArea.hpp>
 #include <gtkmm/window.h>
+#include <gtkmm/box.h>
 #include <gtkmm/button.h>
-#include <gtkmm/drawingarea.h>
 #include <gtkmm/textview.h>
 
 class AppInterface : public Gtk::Window
@@ -10,11 +11,12 @@ public:
     AppInterface ();
     virtual ~AppInterface ();
 protected:
-    // events
-    void on_button_click ();
+    // signal handlers
     
     // interface elements
-    Gtk::Button plot_button;
-    Gtk::DrawingArea graph;
-    Gtk::TextView function;
+    Gtk::Box horizontal_box;
+    Gtk::Box vertical_box;
+    Gtk::Button btn_plot;
+    GraphArea ga_graph;
+    Gtk::TextView tv_function;
 };
