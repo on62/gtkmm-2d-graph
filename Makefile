@@ -14,7 +14,8 @@ interface: directories
 	g++ -c $(COMPILE_FLAGS) src/AppInterface.cpp -o obj/AppInterface.o
 
 graph_area: directories
-	g++ -c $(COMPILE_FLAGS) src/GraphArea.cpp -o obj/GraphArea.o
+	g++ -c $(COMPILE_FLAGS) src/GraphArea_drawing.cpp -o obj/GraphArea_drawing.o
+	g++ -c $(COMPILE_FLAGS) src/GraphArea_events.cpp -o obj/GraphArea_events.o
 
 clean:
 	rm -rf bin
