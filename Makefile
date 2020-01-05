@@ -1,6 +1,6 @@
 COMPILE_FLAGS = -Wall -Iinclude
 GTKMM = $(shell pkg-config gtkmm-3.0 --cflags)
-LIBS = $(shell pkg-config gtkmm-3.0 --libs)
+LIBS = $(shell pkg-config gtkmm-3.0 --libs) lib/tinyexpr.o
 BUILD_FLAGS = -no-pie
 
 .PHONY: clean directories
@@ -18,11 +18,8 @@ graph_area: directories
 	g++ -c $(COMPILE_FLAGS) $(GTKMM) src/GraphArea_drawing.cpp -o obj/GraphArea_drawing.o
 	g++ -c $(COMPILE_FLAGS) $(GTKMM) src/GraphArea_events.cpp -o obj/GraphArea_events.o
 
-function: directories tinyexpr
+function: directories
 	g++ -c $(COMPILE_FLAGS) src/Function.cpp -o obj/Function.o
-
-tinyexpr: directories
-	gcc -c $(COMPILE_FLAGS) lib/tinyexpr.c -o obj/tinyexpr.o
 
 clean:
 	rm -rf bin
