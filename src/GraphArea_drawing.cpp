@@ -28,6 +28,22 @@ GraphArea::~GraphArea()
     delete f;
 }
 
+void GraphArea::new_function (const std::string &expr)
+{
+    Function *temp = new Function (expr); // may throw an exception
+    delete f;
+    f = temp;
+    
+    // Full reset
+    coef_x = 50;
+    coef_y = -50;
+    mark_interval_x = 1;
+    mark_interval_y = 1;
+    Gtk::Allocation ga_alloc = get_allocation();
+    world_origin = Point (double (ga_alloc.get_width()) / 2.0, double (ga_alloc.get_height()) / 2.0);
+    queue_draw();
+}
+
 Point GraphArea::world_to_screen (Point P_w)
 {
     Point P_s;

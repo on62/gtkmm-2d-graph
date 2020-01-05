@@ -3,7 +3,8 @@
 #include <gtkmm/window.h>
 #include <gtkmm/box.h>
 #include <gtkmm/button.h>
-#include <gtkmm/textview.h>
+#include <gtkmm/entry.h>
+#include <gtkmm/entrybuffer.h>
 
 class AppInterface : public Gtk::Window
 {
@@ -12,11 +13,13 @@ public:
     virtual ~AppInterface ();
 protected:
     // signal handlers
+    void on_text_input ();
     
     // interface elements
     Gtk::Box horizontal_box;
     Gtk::Box vertical_box;
     Gtk::Button btn_plot;
     GraphArea ga_graph;
-    Gtk::TextView tv_function;
+    Gtk::Entry e_function;
+    Glib::RefPtr<Gtk::EntryBuffer> e_buffer;
 };

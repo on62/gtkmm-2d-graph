@@ -5,7 +5,7 @@
 class Function
 {
 public:
-    Function (std::string);
+    Function (const std::string&);
     ~Function ();
     double operator() (double);
 private:

@@ -28,6 +28,8 @@ class GraphArea : public Gtk::DrawingArea
 public:
     GraphArea ();
     ~GraphArea();
+    
+    void new_function (const std::string&);
 private:
     // signal handlers
     bool on_draw (const Cairo::RefPtr<Cairo::Context>&) override;
