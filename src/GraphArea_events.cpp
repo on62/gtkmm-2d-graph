@@ -24,16 +24,16 @@ bool GraphArea::on_scroll_event (GdkEventScroll* info)
     switch (info->direction)
     {
     case GDK_SCROLL_UP:
-        coef_x *= 1.1;
         world_origin.x -= 0.1 * coef_x * cursor_in_wp.x;
-        coef_y *= 1.1;
+        coef_x *= 1.1;
         world_origin.y -= 0.1 * coef_y * cursor_in_wp.y;
+        coef_y *= 1.1;
         break;
     case GDK_SCROLL_DOWN:
-        coef_x *= 0.9;
         world_origin.x += 0.1 * coef_x * cursor_in_wp.x;
-        coef_y *= 0.9;
+        coef_x *= 0.9;
         world_origin.y += 0.1 * coef_y * cursor_in_wp.y;
+        coef_y *= 0.9;
         break;
     default:;
     }
