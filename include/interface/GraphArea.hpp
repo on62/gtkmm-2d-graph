@@ -1,5 +1,6 @@
 #pragma once
 #include <gtkmm/drawingarea.h>
+#include <Function.hpp>
 
 struct Point
 {
@@ -27,7 +28,7 @@ class GraphArea : public Gtk::DrawingArea
 public:
     GraphArea ();
     ~GraphArea();
-protected:
+private:
     // signal handlers
     bool on_draw (const Cairo::RefPtr<Cairo::Context>&) override;
     bool on_button_press_event (GdkEventButton*) override;
@@ -46,4 +47,7 @@ protected:
     double mark_interval_x; // intervals in WS units between two numbered marks on a rendered axis
     double mark_interval_y;
     void set_mark_intervals ();
+    
+    // function
+    Function *f;
 };

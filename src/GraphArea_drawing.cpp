@@ -21,6 +21,12 @@ GraphArea::GraphArea()
     coef_y = -50;
     mark_interval_x = 1;
     mark_interval_y = 1;
+    f = new Function ("cos(x)");
+}
+
+GraphArea::~GraphArea()
+{
+    delete f;
 }
 
 Point GraphArea::world_to_screen (Point P_w)
@@ -161,10 +167,24 @@ bool GraphArea::on_draw (const Cairo::RefPtr<Cairo::Context>& widget_context)
     }
     context->stroke();
     
+    // Plot the function
+    context->set_line_width (3.0);
+    context->set_source_rgb (0.0, 1.0, 1.0);
+    for (double px = 1; px < ga_width; ++px)
+    {
+        Point P1_w, P2_w, P1_s, P2_s;
+        P1_w = screen_to_world (Point (px, 0));
+        P2_w = screen_to_world (Point (px + 1, 0));
+        P1_w.y = (*f) (P1_w.x); P2_w.y = (*f) (P2_w.x);
+        P1_s = world_to_screen (P1_w);
+        P2_s = world_to_screen (P2_w);
+        context->move_to (P1_s.x, P1_s.y);
+        context->line_to (P2_s.x, P2_s.y);
+    }
+    context->stroke();
+    
     widget_context->set_source (buffer_surface, 0, 0);
     widget_context->paint();
     
     return true;
 }
-
-GraphArea::~GraphArea() {}

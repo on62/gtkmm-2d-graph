@@ -5,4 +5,4 @@ Displays the graph of a given (preferably continuous) function of one variable
 Linux 64-bit
 ### Dependencies:
 - gtkmm
-- tinyexpr (static library in lib/)
+- tinyexpr
