@@ -10,6 +10,11 @@ namespace
     {
         return (fabs(a - b) < 1e-6);
     }
+    
+    double clamp (double x, double a, double b)
+    {
+        return (x < a) ? a : ((x > b) ? b : x);
+    }
 }
 
 GraphArea::GraphArea()
@@ -121,8 +126,8 @@ bool GraphArea::on_draw (const Cairo::RefPtr<Cairo::Context>& widget_context)
     context->set_source_rgb (1.0, 0.3, 0.3);
     context->set_line_width (2.0);
     Point clamped_origin;
-    clamped_origin.x = (world_origin.x <= 0) ? 1.0 : ( (world_origin.x > ga_width) ? ga_width : world_origin.x);
-    clamped_origin.y = (world_origin.y <= 0) ? 1.0 : ( (world_origin.y > ga_height) ? ga_height : world_origin.y);
+    clamped_origin.x = clamp (world_origin.x, 1.0, ga_width);
+    clamped_origin.y = clamp (world_origin.y, 1.0, ga_height);
     Point upper_left = screen_to_world (Point (0.0, 0.0));
     Point lower_right = screen_to_world (Point (ga_width, ga_height));
     Pango::FontDescription mark_font;
@@ -191,8 +196,11 @@ bool GraphArea::on_draw (const Cairo::RefPtr<Cairo::Context>& widget_context)
         P1_w = screen_to_world (Point (px, 0));
         P2_w = screen_to_world (Point (px + 1, 0));
         P1_w.y = (*f) (P1_w.x); P2_w.y = (*f) (P2_w.x);
+        if ( std::isnan (P1_w.y) || std::isnan (P2_w.y) ) continue;
         P1_s = world_to_screen (P1_w);
         P2_s = world_to_screen (P2_w);
+        P1_s.y = clamp (P1_s.y, -2.0, ga_height + 2.0);
+        P2_s.y = clamp (P2_s.y, -2.0, ga_height + 2.0);
         context->move_to (P1_s.x, P1_s.y);
         context->line_to (P2_s.x, P2_s.y);
     }

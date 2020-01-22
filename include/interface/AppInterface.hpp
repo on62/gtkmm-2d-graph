@@ -5,6 +5,8 @@
 #include <gtkmm/button.h>
 #include <gtkmm/entry.h>
 #include <gtkmm/entrybuffer.h>
+#include <gtkmm/cssprovider.h>
+#include <gtkmm/styleproperty.h>
 
 class AppInterface : public Gtk::Window
 {
@@ -14,6 +16,7 @@ public:
 protected:
     // signal handlers
     void on_text_input ();
+    void on_parsing_error (const Glib::RefPtr<const Gtk::CssSection>& section, const Glib::Error& error);
     
     // interface elements
     Gtk::Box horizontal_box;
@@ -22,4 +25,5 @@ protected:
     GraphArea ga_graph;
     Gtk::Entry e_function;
     Glib::RefPtr<Gtk::EntryBuffer> e_buffer;
+    Glib::RefPtr<Gtk::CssProvider> css_provider;
 };

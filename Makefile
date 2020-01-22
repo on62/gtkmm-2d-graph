@@ -7,6 +7,7 @@ BUILD_FLAGS = -no-pie
 
 build: main interface graph_area function
 	g++ $(BUILD_FLAGS) $(LIBS) obj/* -o bin/gtkmm-2d-graph
+	cp src/style.css bin/
 
 main: directories
 	g++ -c $(COMPILE_FLAGS) $(GTKMM) src/main.cpp -o obj/main.o

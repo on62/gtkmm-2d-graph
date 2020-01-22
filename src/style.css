@@ -1,0 +1,17 @@
+window
+{
+    background-color: #444;
+}
+
+entry
+{
+    background-color: #333;
+    color: white;
+    font: 14px "Hermit";
+}
+
+button
+{
+    color: white;
+    font: 14px "Hermit";
+}
