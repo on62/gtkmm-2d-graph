@@ -48,7 +48,6 @@ private:
     // coordinate plane
     double mark_interval_x; // intervals in WS units between two numbered marks on a rendered axis
     double mark_interval_y;
-    void set_mark_intervals ();
     
     // function
     Function *f;

@@ -6,12 +6,7 @@
 
 namespace
 {
-    bool almost_equal (double a, double b)
-    {
-        return (fabs(a - b) < 1e-6);
-    }
-    
-    double clamp (double x, double a, double b)
+    inline double clamp (double x, double a, double b)
     {
         return (x < a) ? a : ((x > b) ? b : x);
     }
@@ -65,51 +60,6 @@ Point GraphArea::screen_to_world (Point P_s)
     return P_w;
 }
 
-void GraphArea::set_mark_intervals ()
-{
-    // X
-    double value_50px = 50.0/coef_x;
-    double exp_50px = pow(10, floor(log10 (value_50px)));
-    double norm_50px = value_50px / exp_50px;
-    double norm_curr = mark_interval_x / exp_50px;
-    
-    if (norm_50px < norm_curr)
-    {
-        if (almost_equal (norm_curr, 20)) mark_interval_x = 10.0*exp_50px;
-        else if (almost_equal (norm_curr, 2.5) && norm_50px < 2.0) mark_interval_x = 2.0*exp_50px;
-        else if (almost_equal (norm_curr, 5.0) && norm_50px < 2.5) mark_interval_x = 2.5*exp_50px;
-        else if (almost_equal (norm_curr, 10.0) && norm_50px < 5.0) mark_interval_x = 5.0*exp_50px;
-    }
-    else
-    {
-        if (almost_equal (norm_curr, 1.0) && norm_50px > 2.0) mark_interval_x = 2.0*exp_50px;
-        else if (almost_equal (norm_curr, 2.0) && norm_50px > 2.5) mark_interval_x = 2.5*exp_50px;
-        else if (almost_equal (norm_curr, 2.5) && norm_50px > 5.0) mark_interval_x = 5.0*exp_50px;
-        else if (almost_equal (norm_curr, 0.5)) mark_interval_x = 1.0*exp_50px;
-    }
-    
-    // Y
-    value_50px = 50.0/(-coef_y);
-    exp_50px = pow(10, floor(log10 (value_50px)));
-    norm_50px = value_50px / exp_50px;
-    norm_curr = mark_interval_y / exp_50px;
-    
-    if (norm_50px < norm_curr)
-    {
-        if (almost_equal (norm_curr, 20)) mark_interval_y = 10.0*exp_50px;
-        else if (almost_equal (norm_curr, 2.5) && norm_50px < 2.0) mark_interval_y = 2.0*exp_50px;
-        else if (almost_equal (norm_curr, 5.0) && norm_50px < 2.5) mark_interval_y = 2.5*exp_50px;
-        else if (almost_equal (norm_curr, 10.0) && norm_50px < 5.0) mark_interval_y = 5.0*exp_50px;
-    }
-    else
-    {
-        if (almost_equal (norm_curr, 1.0) && norm_50px > 2.0) mark_interval_y = 2.0*exp_50px;
-        else if (almost_equal (norm_curr, 2.0) && norm_50px > 2.5) mark_interval_y = 2.5*exp_50px;
-        else if (almost_equal (norm_curr, 2.5) && norm_50px > 5.0) mark_interval_y = 5.0*exp_50px;
-        else if (almost_equal (norm_curr, 0.5)) mark_interval_y = 1.0*exp_50px;
-    }
-}
-
 bool GraphArea::on_draw (const Cairo::RefPtr<Cairo::Context>& widget_context)
 {    
     Gtk::Allocation ga_alloc = get_allocation();
@@ -142,7 +92,7 @@ bool GraphArea::on_draw (const Cairo::RefPtr<Cairo::Context>& widget_context)
         mark < ceil (upper_left.y / mark_interval_y) * mark_interval_y;
         mark += mark_interval_y)
     {
-        if (almost_equal(mark, 0.0)) continue; // no need to mark the origin
+        if (fabs (mark) < 1e-6 ) continue; // no need to mark the origin
         Point mark_location = world_to_screen (Point (0.0, mark));
         context->move_to (clamped_origin.x - 4, mark_location.y);
         context->line_to (clamped_origin.x + 4, mark_location.y);
@@ -167,7 +117,7 @@ bool GraphArea::on_draw (const Cairo::RefPtr<Cairo::Context>& widget_context)
         mark < ceil (lower_right.x / mark_interval_x) * mark_interval_x;
         mark += mark_interval_x)
     {
-        if (almost_equal (mark, 0.0)) continue;
+        if (fabs (mark) < 1e-6 ) continue;
         Point mark_location = world_to_screen (Point (mark, 0.0));
         context->move_to (mark_location.x, clamped_origin.y - 4);
         context->line_to (mark_location.x, clamped_origin.y + 4);
