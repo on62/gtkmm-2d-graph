@@ -5,13 +5,29 @@ window
 
 entry
 {
+    background-image: none;
     background-color: #333;
     color: white;
+    caret-color: white;
     font: 14px "Hermit";
+    border-radius: 0;
+    border-color: #252525;
 }
 
 button
 {
     color: white;
     font: 14px "Hermit";
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 0;
+    border-color: #626262;
+    background-color: #626262;
+}
+
+button:hover:active
+{
+    background-color: #353535;
+    border-color: #252525;
 }
